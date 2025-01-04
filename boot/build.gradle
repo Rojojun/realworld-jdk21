@@ -1,0 +1,6 @@
+dependencies {
+    implementation project(':realworld-data')
+    implementation project(':realworld-infra')
+
+    runtimeOnly 'com.h2database:h2'
+}
