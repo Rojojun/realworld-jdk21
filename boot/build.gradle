@@ -1,6 +1,42 @@
+plugins {
+    id 'jacoco'
+}
+
+jacoco {
+    toolVersion = "0.8.10"
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        html.required.set(true)
+        xml.required.set(false)
+        csv.required.set(false)
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            enabled = true
+            element = 'CLASS'
+
+            limit {
+                counter = 'LINE'
+                value = 'TOTALCOUNT'
+                minimum = 0.50
+            }
+        }
+    }
+}
+
 dependencies {
     implementation project(':realworld-data')
     implementation project(':realworld-infra')
 
     runtimeOnly 'com.h2database:h2'
+}
+
+tasks.build {
+    finalizedBy tasks.jacocoTestReport
 }
